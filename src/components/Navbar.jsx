@@ -1,85 +1,71 @@
-import React, { useState } from 'react';
-import { Menu, X, Home, FolderOpen, BookOpen, Mail } from 'lucide-react';
-import Link from './Link';
+// components/Navbar.jsx
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X, Home, FolderOpen, BookOpen, Mail } from "lucide-react";
 
-const Navbar = ({ currentPage, setCurrentPage }) => {
+const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   const navItems = [
-    { id: 'home', label: 'Home', icon: Home, path: '/' },
-    { id: 'projects', label: 'Projects', icon: FolderOpen, path: '/projects' },
-    { id: 'blogs', label: 'Blogs', icon: BookOpen, path: '/blogs' },
-    { id: 'contact', label: 'Contact', icon: Mail, path: '/contact' }
+    { label: "Home", icon: Home, path: "/" },
+    { label: "Projects", icon: FolderOpen, path: "/projects" },
+    { label: "Blogs", icon: BookOpen, path: "/blogs" },
+    { label: "Contact", icon: Mail, path: "/contact" },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
+    <nav className="flex items-center justify-between px-6 py-4 text-white">
+      <Link to="/" className="text-2xl font-bold hover:text-blue-200 transition">
+        MY-REALESTATE
+      </Link>
+
+      <div className="hidden md:flex items-center space-x-4">
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          return (
             <Link
-              to="/"
-              onClick={() => setCurrentPage('home')}
-              className="text-2xl font-bold text-gray-800 hover:text-blue-600 transition-colors"
+              key={item.path}
+              to={item.path}
+              className={`flex items-center space-x-2 px-4 py-2 rounded ${
+                currentPath === item.path
+                  ? "bg-white/20 text-blue-200 border border-white/30 backdrop-blur-md"
+                  : "hover:bg-white/10 hover:text-blue-200"
+              }`}
             >
-              MY-REALESTATE
+              <Icon className="w-4 h-4" />
+              <span>{item.label}</span>
             </Link>
-          </div>
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.id}
-                  to={item.path}
-                  onClick={() => setCurrentPage(item.id)}
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    currentPage === item.id
-                      ? 'text-blue-600 bg-blue-50'
-                      : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
-                  }`}
-                >
-                  <Icon className="w-4 h-4" />
-                  <span>{item.label}</span>
-                </Link>
-              );
-            })}
-          </div>
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-700 hover:text-blue-600 focus:outline-none"
-            >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
+          );
+        })}
       </div>
+
+      <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden">
+        {isMenuOpen ? <X /> : <Menu />}
+      </button>
+
+      {/* Mobile */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-200">
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.id}
-                  to={item.path}
-                  onClick={() => {
-                    setCurrentPage(item.id);
-                    setIsMenuOpen(false);
-                  }}
-                  className={`flex items-center space-x-2 w-full text-left px-3 py-2 rounded-md text-base font-medium transition-colors ${
-                    currentPage === item.id
-                      ? 'text-blue-600 bg-blue-50'
-                      : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
-                  }`}
-                >
-                  <Icon className="w-5 h-5" />
-                  <span>{item.label}</span>
-                </Link>
-              );
-            })}
-          </div>
+        <div className="absolute top-16 left-0 w-full bg-black/80 p-4 md:hidden z-50">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                onClick={() => setIsMenuOpen(false)}
+                className={`flex items-center px-4 py-3 space-x-2 rounded ${
+                  currentPath === item.path
+                    ? "bg-white/20 text-blue-200"
+                    : "hover:bg-white/10 hover:text-blue-200"
+                }`}
+              >
+                <Icon className="w-5 h-5" />
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
         </div>
       )}
     </nav>

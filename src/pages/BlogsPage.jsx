@@ -1,6 +1,7 @@
 import React from 'react';
+import Navbar from '../components/Navbar';
 
-const BlogsPage = () => {
+const BlogsPage = ({ currentPage, setCurrentPage }) => {
   const blogs = [
     {
       id: 1,
@@ -30,6 +31,7 @@ const BlogsPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-20">
+      <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} />
       <div className="max-w-4xl mx-auto px-4">
         <h1 className="text-4xl font-bold text-center mb-12 text-gray-800">Real Estate Blog</h1>
         <div className="space-y-8">

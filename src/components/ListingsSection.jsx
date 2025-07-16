@@ -40,7 +40,7 @@ const listings = [
 
 const ListingsSection = () => {
   return (
-    <div className="p-6 flex flex-col gap-6 items-center">
+    <div className="p-6 mt-20 flex flex-col gap-6 items-center">
       {listings.map((listing, index) => (
         <PropertyCard key={index} {...listing} />
       ))}
