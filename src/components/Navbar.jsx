@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Home, FolderOpen, BookOpen, Mail } from "lucide-react";
+import logo from "../assets/logo.png";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,8 +18,11 @@ const Navbar = () => {
 
   return (
     <nav className="flex items-center justify-between px-6 py-4 text-white">
-      <Link to="/" className="text-2xl font-bold hover:text-blue-200 transition">
-        MY-REALESTATE
+      <Link
+        to="/"
+        className="text-2xl font-bold hover:text-[#EE4C01] transition"
+      >
+        <img src={logo} alt="My Real Estate" className="md:h-20 h-16" />
       </Link>
 
       <div className="hidden md:flex items-center space-x-4">
@@ -28,10 +32,10 @@ const Navbar = () => {
             <Link
               key={item.path}
               to={item.path}
-              className={`flex items-center space-x-2 px-4 py-2 rounded ${
+              className={`flex items-center space-x-2 text-xl px-4 py-2 rounded ${
                 currentPath === item.path
-                  ? "bg-white/20 text-blue-200 border border-white/30 backdrop-blur-md"
-                  : "hover:bg-white/10 hover:text-blue-200"
+                  ? " text-[#EE4C01] "
+                  : " hover:text-[#EE4C01]"
               }`}
             >
               <Icon className="w-4 h-4" />

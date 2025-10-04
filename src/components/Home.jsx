@@ -1,4 +1,3 @@
-// pages/HomePage.jsx
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { slides } from "../data/slides";
@@ -19,20 +18,33 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       <div className="relative h-screen w-full overflow-hidden">
+        {/* Background image */}
         <div className="absolute inset-0 w-full h-full">
           <img
             src={slides[currentSlide].image}
-            alt={`Slide ${currentSlide}`}
-            className="w-full h-full object-cover"
+            alt={slides[currentSlide].title}
+            className="w-full h-full object-cover transition-opacity duration-700"
           />
+          <div className="absolute inset-0 bg-black/40" /> {/* overlay */}
         </div>
 
+        {/* Slide content */}
         <div className="relative z-10 h-full flex flex-col">
           <div className="flex-1 flex items-center justify-center text-center text-white px-4">
             <div className="max-w-4xl mx-auto">
               <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-lg">
                 {slides[currentSlide].title}
               </h1>
+
+              {/* Optional secondary image */}
+              {slides[currentSlide].image2 && (
+                <img
+                  src={slides[currentSlide].image2}
+                  alt="Background decoration"
+                  className="mx-auto mb-6 max-h-10/12 object-contain"
+                />
+              )}
+
               <p className="text-xl md:text-2xl mb-8 drop-shadow-md">
                 {slides[currentSlide].subtitle}
               </p>
@@ -43,6 +55,7 @@ const Home = () => {
           </div>
         </div>
 
+        {/* Prev/Next buttons */}
         <button
           onClick={prevSlide}
           className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-2"
@@ -56,6 +69,7 @@ const Home = () => {
           <ChevronRight className="w-6 h-6 text-white" />
         </button>
 
+        {/* Indicators */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
           {slides.map((_, index) => (
             <button

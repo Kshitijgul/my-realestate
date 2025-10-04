@@ -86,8 +86,9 @@ const HomePage = () => {
   return (
     <>
       <Home></Home>
-      <ListingsComponent></ListingsComponent>
+    
       <TownshipListings></TownshipListings>
+        <ListingsComponent></ListingsComponent>
       <WhyChooseUs></WhyChooseUs>
       <OurMilestones></OurMilestones>
       <YoutubeVideoEmbed></YoutubeVideoEmbed>
